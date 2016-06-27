@@ -4,20 +4,20 @@ import javax.inject._
 import play.api.mvc._
 import play.api.libs.json.Json
 import models._
-
+import controllers.responses._
 class EventsController @Inject() extends Controller{
   
   def list = Action {request => 
     val events: Seq[Event] = ???
-    Ok(Json.toJson(events))
+    Ok(Json.toJson(SuccessResponse(events)))
   }
   
   def getByID(eventID: Long) = Action { request =>
     val event: Option[Event] = ???
     event.fold{
-      NotFound(Json.toJson("No event found"))
+      NotFound(Json.toJson(ErrorResponse(NOT_FOUND, "No event found")))
     } { e =>
-      Ok(Json.toJson(e))
+      Ok(Json.toJson(SuccessResponse(e)))
     }
   }
   
@@ -26,7 +26,7 @@ class EventsController @Inject() extends Controller{
     val incomingEvent: Event = ???
     val createdEvent: Event = ???
     
-    Created(Json.toJson(createdEvent))
+    Created(Json.toJson(SuccessResponse(createdEvent)))
   }
   
 }
