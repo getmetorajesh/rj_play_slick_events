@@ -23,6 +23,8 @@ object ErrorResponse {
   def apply(status: Int, message: String) = {
     EndpointResponse("ko", JsNull, Option(ErrorResult(status, message)))
   }
+  
+  def INVALID_JSON = 1000
 }
 
 object SuccessResponse {

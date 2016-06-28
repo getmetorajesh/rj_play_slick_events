@@ -2,7 +2,7 @@ package models
 import org.joda.time.DateTime
 
 case class TicketBlock(
-  id: Long,
+  id: Option[Long],
   eventID: Long,
   name: String,
   productCode: String,

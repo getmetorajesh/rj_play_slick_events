@@ -21,7 +21,17 @@ class EventsController @Inject() extends Controller{
     }
   }
   
-  def create = Action { request =>
+  def create = Action(parse.json) { request =>
+    
+    val incomingBody = request.body.validate[Event]
+    
+    incomingBody.fold(error => {
+      val errorMessage = s"Invalid JSON: ${error}"
+      val response = ErrorResponse(ErrorResponse.INVALID_JSON, errorMessage)
+    }, event => {
+       val createdEvent: Event = ???
+       Created(Json.toJson(SuccessResponse(createdEvent)))
+    })
     
     val incomingEvent: Event = ???
     val createdEvent: Event = ???
